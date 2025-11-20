@@ -1,0 +1,99 @@
+#include <stdlib.h>
+#include <stdio.h>
+typedef struct Node *NodePtr;
+typedef struct Node
+{
+  int val;
+  NodePtr next;
+  NodePtr back;
+}Node;
+
+void inputlst(NodePtr hd);
+void insert(NodePtr l, int val);
+void printlst(NodePtr l);
+
+
+void main()
+{
+  
+  NodePtr hd= (NodePtr) malloc(sizeof(Node));
+  hd->val = -1;
+  hd->next = NULL;
+  hd->back = NULL;
+  inputlst(hd);
+  // printf("Length:%d\n",length(hd));
+  // printlst(hd);
+  // printf("Now reverse\n");
+  // reverselst(hd);
+  //printlst(hd);
+}
+void inputlst(NodePtr hd)
+{
+  char done;
+  int c;
+  while(1>0){
+  do
+  {
+    scanf("%d",&c);
+    insert(hd,c);
+  }while(c != -1);
+  printf("Are you done? (Y/N)");
+    scanf("%c", &done);
+  if(done == 'Y'){break};
+}
+}
+
+
+void insert(NodePtr l, int val)
+{
+  if(val != -1)
+    {
+  NodePtr p=(NodePtr)malloc(sizeof(Node));
+  p->val = val;
+  p->next = NULL;
+  p->back=NULL;
+  while(l->next !=NULL)
+  {
+    l = l->next;
+  }
+  l->next=p;
+  l1->back=p;
+  p->back=l;
+    }}
+  /*  void printlst(NodePtr l)
+{
+    NodePtr l1=l;
+  if(l->next != NULL){l->next->back=NULL;}
+  l=l->next;
+  l1=l1->back;
+  while(l)
+  {
+    printf("%d\n", l->val);
+    l=l->next;
+    printf("a%d\n", l1->val);
+    l1=l1->back;
+    }}*/
+
+  void arr (Nodeptr l)
+{
+  if(l->next != NULL){l->next->back=NULL;}
+  int count=0;
+  long*ar= NULL;
+  long*allocate= realloc(arr,(count+1)*sizeof(long));
+  ar=allocate;
+  *(ar + count)=l;
+  count++;
+
+ NodePtr l1=l;
+  l=l->next;
+  l1=l1->back;
+  while(l)
+  {
+    printf("%d\n", l->val);
+    l=l->next;
+    printf("a%d\n", l1->val);
+    l1=l1->back;
+  }}
+
+
+  
