@@ -8,8 +8,10 @@ typedef struct Node
   NodePtr back;
 }Node;
 
-void adjlist(NodePtr hd);
-void insert(NodePtr l, int val);
-void printlst(NodePtr l);
-void arr(Nodeptr l);
+void adjlist();
+void insert(int l, int val);
+void arr(NodePtr l,int val,int num);
+int c=-1,g=-1;
+NodePtr array[5];
+
 
