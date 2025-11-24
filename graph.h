@@ -9,9 +9,11 @@ typedef struct Node
 }Node;
 
 void adjlist();
-void insert(int l, int val);
-void arr(NodePtr l,int val,int num);
-int c=-1,g=-1;
-NodePtr array[5];
+void insert(int val, int num);
+NodePtr arr(int val,int num);
+void disconnecteg(int val);
+int count=0;
+#define MAXV 6
+NodePtr array[MAXV];
 
 

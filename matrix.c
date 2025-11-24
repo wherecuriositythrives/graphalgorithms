@@ -1,11 +1,34 @@
+#include <stdlib.h>
+#include <stdio.h>
+typedef struct Node *NodePtr;
+typedef struct Node
+{
+  int val;
+  NodePtr next;
+  NodePtr back;
+}Node;
+void adjlist();
+void insert(int val, int num);
+NodePtr arr(int val,int num);
+void disconnecteg(int val);
+int count=0;
+#define MAXV 6
+NodePtr array[MAXV];
+NodePtr *arr=(NodePtr)calloc(MAXV,sizeof(NodePtr));
+
+void main()
+{
+  adjlist();
+  matrix();
+}
 
 void adjlist()
 {
-  insert(0,1);
-  insert(1,2);
-  insert(1,3);
-  insert(2,3);
-  insert(2,4);
+  matrix(0,1);
+  matrix(1,2);
+  matrix(1,3);
+  matrix(2,3);
+  matrix(2,4);
   disconnecteg(5);
 }
 
@@ -15,20 +38,22 @@ void insert(int val, int num)
   int i=0;
   NodePtr l=NULL;//checking if node present or not
   do{
-    if(array[i]->val == val)
+    if(matrix[i]->val == val)
     {
-      l=array[i];
+      l=matrix[i];
      }
       i++;
   }while(i<count);
   
   if(l==NULL){      //creating new list if vertex doesn't exist
-  l= (NodePtr) malloc(sizeof(Node));
+  l= (NodePtr)malloc(sizeof(Node));
   l->val = val;
   l->next = NULL;
   l->back = NULL;
-  array[count]=l;  //store node in array
-  count++;
+  *(arr+count)=l;
+    for(int i=0;i<=count; i++) //store node in array
+      {
+	arr[i]=(NodePtr)malloc(MAXV*sizeof(NodePtr));
   }
  
 	  
@@ -106,4 +131,12 @@ void disconnecteg(int val) //for disconnected graphs
     }
 }
 
+void matrix()  
+{
+  int rows= MAXV;
+  NodePtr *arr = (NodePtr)malloc(rows*sizeof(NodePtr));
+  for(int i=0; i<=rows; i++)
+    {
+      arr[i]=(NodePtr)malloc(rows*sizeof(NodePtr));
+    }
         
