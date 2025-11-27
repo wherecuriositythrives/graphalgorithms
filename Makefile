@@ -4,7 +4,7 @@
 
 # default rule
 a.out : main.o graph.o
-	gcc main.o graph.o 
+	gcc -g main.o graph.o 
 
 # compile source files into object files
 main.o: main.c graph.h

@@ -1,6 +1,12 @@
 #include "graph.h"
+int **arr1 = NULL;
+int **ar = NULL;
+int count1 = 0;
+int count = 0;
+NodePtr array[MAXV];
 void adjlist()
 {
+  printf("hi");
   insert(0,1);
   insert(1,2);
   insert(1,3);
@@ -9,16 +15,51 @@ void adjlist()
   disconnecteg(5);
 }
 
+void adjmatrix()
+{
+    arr1=(int**)malloc(MAXV*sizeof(int*));
+  for(int i=0; i<MAXV; i++)
+    {
+      arr1[i]=(int*)malloc(MAXV*sizeof(int));
+    }
+  for(int i=0; i<MAXV; i++)
+    {
+      for(int w=0;w<MAXV; w++)
+	{ 
+      arr1[i][w]= -1;
+    }
+    }
+  
+    ar=(int**)malloc(MAXV*sizeof(int*));
+  for(int i=0; i<MAXV; i++)
+    {
+      ar[i]=(int*)calloc(MAXV,sizeof(int));
+    }
+ 
+  matrix(0,1);
+  matrix(1,2);
+  matrix(1,3);
+  matrix(2,3);
+  matrix(2,4);
+  dismatrix(5);
+  matrix2(0,1);
+  matrix2(1,2);
+  matrix2(1,3);
+  matrix2(2,3);
+  matrix2(2,4);
+}
+
 
 void insert(int val, int num)
 {
   int i=0;
   NodePtr l=NULL;//checking if node present or not
-  do{
-    if(array[i]->val == val)
+  do
     {
-      l=array[i];
-     }
+      if(array[i]->val == val)
+      {
+	l=array[i];
+      }
       i++;
   }while(i<count);
   
@@ -30,7 +71,7 @@ void insert(int val, int num)
   array[count]=l;  //store node in array
   count++;
   }
- 
+ printf("hi1"); 
 	  
   NodePtr p=(NodePtr)malloc(sizeof(Node)); //create for storing second node
   p->val = num;
@@ -40,16 +81,16 @@ void insert(int val, int num)
   NodePtr l1=l;
  
    while(l->next !=NULL)
-  {
-    l = l->next;
-  }
-  l->next=p;
-  p->back=l;
-  l1->next->back=NULL;
-  arr(val,num); //for checking the second node
-
-  }
-
+     {
+       l = l->next;
+     }
+   l->next=p;
+   p->back=l;
+   l1->next->back=NULL;
+   arr(val,num); //for checking the second node
+ printf("hi2\n"); 
+}
+ 
 void disconnecteg(int val) //for disconnected graphs
 {
   NodePtr p=(NodePtr)malloc(sizeof(Node));
@@ -58,8 +99,9 @@ void disconnecteg(int val) //for disconnected graphs
   p->back=NULL;
   array[count]=p;
   count++;
+  printf("hi3\n"); 
 }
-  
+ 
   NodePtr arr(int val,int num)
 {
   NodePtr n=NULL;
@@ -70,7 +112,7 @@ void disconnecteg(int val) //for disconnected graphs
 	  n=array[i];
 	}
     }
-
+ printf("hi4\n");
   if(n != NULL) //if the second node exists then storing the value
     {
   NodePtr p=(NodePtr)malloc(sizeof(Node));
@@ -104,40 +146,7 @@ void disconnecteg(int val) //for disconnected graphs
            count++;
 	  
     }
-}
-
-void adjmatrix()
-{
-    arr1=(int**)malloc(MAXV*sizeof(int*));
-  for(int i=0; i<MAXV; i++)
-    {
-      arr1[i]=(int*)calloc(MAXV,sizeof(int));
-    }
-  for(int i=0; i<MAXV; i++)
-    {
-      for(int w=0;w<MAXV; w++)
-	{ 
-      arr1[i][w]= -1;
-    }
-    }
-  
-    ar=(int**)malloc(MAXV*sizeof(int*));
-  for(int i=0; i<MAXV; i++)
-    {
-      ar[i]=(int*)calloc(MAXV,sizeof(int));
-    }
- 
-  matrix(0,1);
-  matrix(1,2);
-  matrix(1,3);
-  matrix(2,3);
-  matrix(2,4);
-  dismatrix(5);
-  matrix2(0,1);
-  matrix2(1,2);
-  matrix2(1,3);
-  matrix2(2,3);
-  matrix2(2,4);
+   printf("hi5\n");
 }
 
 
@@ -182,7 +191,7 @@ void matrix(int q, int j)
     }
       if(n == 0)  //If second vertex doesn't exist make one and store the first vertex
 	{
-	  arr1[count1]= j;
+	  *arr1[count1]= j;
 	  arr1[count1][1]=q;
 	  count1++;
 	}
@@ -209,7 +218,7 @@ void bfs()
   int arr[MAXV];
   NodePtr l;
   for(int i=0;i<MAXV-check; i++){arr[i]=0;}
-  for(int i=MAXV-check; i<=MAXV-1; i++){arr[i]==-1;}
+  for(int i=MAXV-check; i<=MAXV-1; i++){arr[i]=-1;}
       l=array[0];
       while(l) //choosing the first vertex and storing its neighbours
 	{
@@ -217,7 +226,10 @@ void bfs()
 	  l=l->next;
 	  count++;
 	}
-      
+      for(int i=0;i<=count;i++)
+	{
+      printf("The first vertex stored along with its neighbours %d\n", arr[i]);
+	}
       while(n<MAXV && arr[n] != -1)
 	{
       for(int i=0; i<MAXV; i++) //finding the location of where the vertex is stored
@@ -232,7 +244,7 @@ void bfs()
       while(l)  
 	{
 	  int q=0;
-	  for(int i=0; i<=count; i++)
+	  for(int i=0; i<=count; i++) //checking if neighbour is present. if yes move on to the next neighbour
 	    {
 	      if(l->val == arr[i])
 		{
@@ -251,21 +263,26 @@ void bfs()
       n++;
 	}
       l=array[0];
-      for(int i=0; i<=MAXV; i++)
+      for(int i=0; i<=MAXV; i++) //diconnected vertex of the graph
 	{
 	  if(l->next == NULL)
 	    {
 	      arr[count]=l->val;
 	    }
 	  l=l->next;
+	 
 	}
-
+      for(int i=0;i<MAXV; i++)
+	{
+	  printf("The array is %d\n", arr[i]);
+	}
 }
-/*
+
 void dfs()
 {
   int n=1;
   int count=0;
+  int q=count-1;
   int arr[MAXV];
   NodePtr l;
   for(int i=0;i<MAXV-check; i++){arr[i]=0;}
@@ -287,7 +304,6 @@ void dfs()
 	  l=l->next;
 	}
 	   l=l->next;
-	   int q=count-1;
 	   for(int i=0; i<=count; i++) //checking if its neighbour have been visited or not
 	     {
 	       if(l->val == arr[i])
@@ -295,7 +311,7 @@ void dfs()
 	       l=l->next;
 	     }
 	     }
-	   if(l != NULL) // if no go to that neighbour
+	   if(l != NULL) // if the neighbour is not visited then go to that neighbour
 	     {
 	       arr[count]= l->val;
 		 count++;
@@ -303,8 +319,8 @@ void dfs()
 	     }
 	   if(l == NULL) //If yes start backtracking
 	     {
-	       for(int i=0; i<=count; i++) // backtrack and find the location of that node
-		 {
+	       for(int i=0; i<=count; i++) // backtrack and find the location of that node.
+		     {
 		   if(arr[q]==array[i]->val)
 		     {
 		       l=array[i];
@@ -328,7 +344,7 @@ void dfs()
 	       break;
 	     }
 	       q--;
-	       if(q
+	       if(q == -1){break;}  
 	     }
 	  l=array[0];
 	  for(int i=0; i<=MAXV; i++)
@@ -343,4 +359,4 @@ void dfs()
 	}
 }
 		 
-*/
+

@@ -20,12 +20,12 @@ void dismatrix(int val);
 //bfs and dfs
 void bfs();
 void dfs();
-int**arr1;
-int**ar;
-int count1;
-int count;
+extern int**arr1;
+extern int**ar;
+extern int count1;
+extern int count;
 #define MAXV 6
 #define check 2 //This is 1+1  = (the first one is constant because I have made by array MAXV; the second one is fir checking disconnected vertex. If you have more than one disconnected vertices add one;
-NodePtr array[MAXV];
+extern NodePtr array[MAXV];
 
 
